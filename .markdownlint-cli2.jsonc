@@ -1,0 +1,11 @@
+{
+  // Shared rules for every Markdown file in this repository.
+  "config": {
+    "default": true,
+    "MD013": false,          // line length: prose wraps naturally on GitHub
+    "MD033": { "allowed_elements": ["details", "summary", "strong", "br"] },
+    "MD024": { "siblings_only": true },
+    "MD060": false
+  },
+  "ignores": ["node_modules/**"]
+}

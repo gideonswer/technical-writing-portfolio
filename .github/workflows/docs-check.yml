@@ -1,0 +1,31 @@
+name: Docs check
+
+# Docs-as-code: every change is linted and every link is checked,
+# the same way code is tested before it is merged.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: Markdown style
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Lint Markdown
+        run: npx --yes markdownlint-cli2 "**/*.md"
+
+  links:
+    name: Broken links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --exclude "localhost" --exclude "127.0.0.1" "**/*.md"
+          fail: true
