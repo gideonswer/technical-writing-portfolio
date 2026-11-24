@@ -111,4 +111,3 @@ Software Developer (MCA) based in Shillong, India. I build AI applications in Py
 
 - 💻 GitHub: [github.com/gideonswer](https://github.com/gideonswer)
 - 🧪 Featured project: [Chat with Docs](https://github.com/gideonswer/chat-with-docs), a RAG platform with page citations and built-in evaluation
-- 🌐 Portfolio: [gideonswer.github.io](https://gideonswer.github.io)

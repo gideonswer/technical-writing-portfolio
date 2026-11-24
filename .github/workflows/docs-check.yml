@@ -6,6 +6,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   lint:
@@ -17,7 +18,7 @@ jobs:
         with:
           node-version: 20
       - name: Lint Markdown
-        run: npx --yes markdownlint-cli2 "**/*.md"
+        run: npx --yes markdownlint-cli2@0.24.2 "**/*.md"
 
   links:
     name: Broken links
@@ -27,5 +28,18 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --exclude "localhost" --exclude "127.0.0.1" "**/*.md"
+          # Sign-in pages and bot-protected sites block automated checkers,
+          # so they are skipped or their "forbidden" answer is accepted.
+          args: >-
+            --no-progress
+            --max-retries 3
+            --accept 200,206,403,429
+            --exclude localhost
+            --exclude 127.0.0.1
+            --exclude aistudio.google.com
+            --exclude console.groq.com
+            "**/*.md"
           fail: true
+        env:
+          # Lets the checker visit github.com links without hitting rate limits.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
